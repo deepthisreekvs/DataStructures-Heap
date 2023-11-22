@@ -1,0 +1,33 @@
+# Enter your code here. Read input from STDIN. Print output to STDOUT
+
+import heapq
+
+# Get the number of operations
+n = int(input())
+
+# Initialize a heap to store elements and a set to track elements to delete
+h = []
+d = set()
+
+# Process each operation
+for _ in range(n):
+    # Read the input as a list of integers
+    v = list(map(int, input().split()))
+
+    # Operation 1: Push element to the heap
+    if v[0] == 1:
+        heapq.heappush(h, v[1])
+
+    # Operation 2: Add element to the set for deletion
+    elif v[0] == 2:
+        d.add(v[1])
+
+    # Operation 3: Print the smallest element after deleting marked elements
+    else:
+        # Delete all items that are present in the set
+        while h and h[0] in d:
+            d.discard(h[0])
+            heapq.heappop(h)
+        
+        # Print the smallest element remaining in the heap
+        print(h[0])

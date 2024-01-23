@@ -1,0 +1,111 @@
+#we should have to use a minimum heap to perform some operations
+
+#!/bin/python3
+
+# import math
+# import os
+# import random
+# import re
+# import sys
+
+import heapq as hq
+
+if __name__ == "__main__":
+    n, k = map(int, input().strip().split(' '))
+    candies = list(map(int, input().strip().split(' ')))
+    q = []
+    res = 0
+    
+    for el in candies:
+        hq.heappush(q, el)
+    
+    while any(c < k for c in q) and len(q) > 1:
+        last = hq.heappop(q)
+        prelast = hq.heappop(q)
+        
+        new = last + 2*prelast
+        
+        hq.heappush(q, new)
+        res += 1
+        
+    if all(c >= k for c in q):
+        print(res)
+    else:
+        print(-1)
+
+#Up to this point, the code has been executed for all test cases. The remaining code, which is provided by default in Hackerrank, is not required. Therefore, I have commented it out.
+  #for code explanation, check it out below at the word - EXPLANATION
+        
+#
+# Complete the 'cookies' function below.
+#
+# The function is expected to return an INTEGER.
+# The function accepts following parameters:
+#  1. INTEGER k
+#  2. INTEGER_ARRAY A
+#
+
+# def cookies(k, A):
+#     # Write your code here
+    
+
+# if __name__ == '__main__':
+#     fptr = open(os.environ['OUTPUT_PATH'], 'w')
+
+#     first_multiple_input = input().rstrip().split()
+
+#     n = int(first_multiple_input[0])
+
+#     k = int(first_multiple_input[1])
+
+#     A = list(map(int, input().rstrip().split()))
+
+#     result = cookies(k, A)
+
+#     fptr.write(str(result) + '\n')
+
+#####################EXPLANATION#############################
+
+# Importing the heapq module to use heap-related functions
+import heapq as hq
+
+# Main function
+if __name__ == "__main__":
+    # Reading the input values for n (number of candies) and k (minimum sweetness required)
+    n, k = map(int, input().strip().split(' '))
+    
+    # Reading the sweetness levels of the candies into a list
+    candies = list(map(int, input().strip().split(' ')))
+    
+    # Initializing an empty heap and a variable to store the result
+    q = []
+    res = 0
+    
+    # Pushing each element of candies into the heap
+    for el in candies:
+        hq.heappush(q, el)
+    
+    # While there are candies with sweetness less than k in the heap, and there are at least two candies
+    while any(c < k for c in q) and len(q) > 1:
+        # Pop the two candies with the lowest sweetness levels
+        last = hq.heappop(q)
+        prelast = hq.heappop(q)
+        
+        # Calculate the sweetness of the new candy formed by combining the last two candies
+        new = last + 2 * prelast
+        
+        # Push the new candy back into the heap
+        hq.heappush(q, new)
+        
+        # Increment the result counter
+        res += 1
+        
+    # If all remaining candies have sweetness levels greater than or equal to k
+    if all(c >= k for c in q):
+        # Print the result (number of operations needed)
+        print(res)
+    else:
+        # If not all candies meet the sweetness requirement, print -1
+        print(-1)
+
+#     fptr.close()
